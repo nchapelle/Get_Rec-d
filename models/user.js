@@ -26,6 +26,12 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.Message, {
         onDelete: "cascade"
       });
+      User.belongsToMany(models.Team, {
+        through: "User_team_xfer",
+        as: "teams",
+        foreignKey: "user_id",
+        otherKey: "team_id"
+       });
     };
   
     return User;

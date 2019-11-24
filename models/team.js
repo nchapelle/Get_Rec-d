@@ -25,12 +25,18 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Team.associate = function (models) {
-        // We're saying that a Team should belong to an Author
+        // We're saying that a Team should belong to a League
         // A Team can't be created without an League due to the foreign key constraint
         Team.belongsTo(models.League, {
             foreignKey: {
                 allowNull: false
             }
+        });
+        Team.belongsToMany(models.User, {
+            through: "User_team_xfer",
+            as: "users",
+            foreignKey: "team_id",
+            otherKey: "user_id"
         });
     };
 
