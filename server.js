@@ -22,6 +22,8 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
+require("./routes/community-apiRoutes")(app);
+
 require("./routes/league-apiRoutes")(app);
 require("./routes/message-apiRoutes")(app);
 require("./routes/statsRecorded-apiRoutes")(app);
@@ -39,7 +41,7 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
+db.sequelize.sync({ force: true }).then(function() {
   app.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
